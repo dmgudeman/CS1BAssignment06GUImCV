@@ -1,10 +1,16 @@
 import java.awt.FlowLayout;
+
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.*;
-
+/**
+ * This class creates a JFrame to take user input, provides a button
+ * to notify the controller and takes a double return value that has 
+ * been converted and displays the result of a temperature 
+ * conversion from F to C.
+ */
 public class ConvertView extends JFrame implements Observer {
 	// set constants for the frame
 	private static final int FRAME_WIDTH = 300;
@@ -19,7 +25,8 @@ public class ConvertView extends JFrame implements Observer {
 	private JTextField celsOutput;
 	private JButton convertButton;
     /**
-     * Non parametrized constructer for this class
+     * Non parameterized constructor for this class, creates a
+     * JFrame and places buttons in the frame
      */
 	public ConvertView() {
 		//creates frame
@@ -36,7 +43,7 @@ public class ConvertView extends JFrame implements Observer {
 		celsOutput = new JTextField("            ");
 		convertButton = new JButton("CONVERT");
 		
-		// adds the intialized elements to the frame
+		// adds the initialized elements to the frame
 		this.add(prompt);
 		this.add(fahrInput);
 		this.add(celsOutput);
@@ -49,12 +56,18 @@ public class ConvertView extends JFrame implements Observer {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
 	}
-
+	/**
+	 * Takes in a controller Object as a parameter registers
+	 * the controller object as a listener for the convertButton
+	 * to be enacted 
+	 */
 	public void addController(ActionListener controller) {
 		convertButton.addActionListener(controller);
 	}
 	/**
-	 * 
+	 * This is a method necessary to implement the Observer interface.
+	 * It takes two parameters o is the observable object and 
+	 * arg an argument passed to the notifyObservers method.
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
@@ -62,7 +75,11 @@ public class ConvertView extends JFrame implements Observer {
 		DecimalFormat df = new DecimalFormat("#.00");
 		celsOutput.setText(df.format(celsius));
 	}
-
+    /**
+     * Returns a Double from the textField input of the JFrame
+     * Uses getText method (inherited from javax.swing.JComponent), 
+     * then trims it and then parses it into a Double. 
+     */
 	public double getFahrenheit() {
 		return Double.parseDouble(fahrInput.getText().trim());
 	}

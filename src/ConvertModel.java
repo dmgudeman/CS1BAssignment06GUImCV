@@ -1,9 +1,10 @@
 import java.util.Observable;
 import java.util.Observer;
 /**
- * 
- * @author davidgudeman
- *
+ * This class is directed to take an input of a double from the
+ * view convert it to Fahrenheit and return a double to the view.
+ * It extends the Obserdable class so that it can be observed by the view
+ * and be able to notify the view when a conversion has been done.
  */
 
 public class ConvertModel extends Observable{
@@ -11,7 +12,8 @@ public class ConvertModel extends Observable{
     private ConvertView modelView;
 	
 	/**
-	 * 
+	 * The is a method of the class Observable that allows
+	 * the model to be observed.  
 	 */
 	public void addObserver(Observer observe) {
 		modelView = (ConvertView)observe;
@@ -25,7 +27,8 @@ public class ConvertModel extends Observable{
 		notifyObservers();
 	}
 	/**
-	 * 
+	 * This method notifies the observer view object to call 
+	 * update and show the result in the output textField
 	 */
 	public void notifyObservers() {
 		modelView.update(null, celsius);
